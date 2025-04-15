@@ -8,6 +8,13 @@ SSH_KEY=$2
 PROJECT_DIR="/var/www/html/posts"
 
 # -----------------------------
+# ПІДГОТОВКА SSH ДЛЯ GIT CLONE
+# -----------------------------
+mkdir -p ~/.ssh
+echo "$SSH_KEY" > ~/.ssh/id_rsa
+chmod 600 ~/.ssh/id_rsa
+
+# -----------------------------
 # СТВОРЕННЯ ПАПКИ ПРОЄКТУ
 # -----------------------------
 mkdir -p $PROJECT_DIR
@@ -19,7 +26,7 @@ git config --global --add safe.directory $PROJECT_DIR
 # -----------------------------
 # КЛОНУВАННЯ ПРОЄКТУ
 # -----------------------------
-if [ ! -d $PROJECT_DIR"/.git" ]; then
+if [ ! -d "$PROJECT_DIR/.git" ]; then
   GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa -o IdentitiesOnly=yes' git clone git@github.com:RomanMahiiovych/fundamental.git .
   cp ./api/.env.example ./api/.env
   sed -i "/DB_PASSWORD/c\DB_PASSWORD=$MYSQL_PASSWORD" ./api/.env
@@ -33,12 +40,12 @@ export NVM_DIR="$HOME/.nvm"
 if [ ! -d "$NVM_DIR" ]; then
   curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
 fi
-source "$NVM_DIR/nvm.sh"
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 nvm install 14
 nvm use 14
 nvm alias default 14
-
 
 # -----------------------------
 # ВСТАНОВЛЕННЯ PHP 8.1 + РОЗШИРЕННЯ
@@ -55,7 +62,7 @@ net-tools supervisor unzip curl git software-properties-common
 # ВСТАНОВЛЕННЯ COMPOSER
 # -----------------------------
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-php -r "if (hash_file('sha384', 'dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6') === true) { echo 'Installer verified'.PHP_EOL; } else { echo 'Installer corrupt'.PHP_EOL; unlink('composer-setup.php'); exit(1); }"
+php -r "if (hash_file('sha384', 'dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6') === 'dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); exit(1); }"
 php composer-setup.php
 php -r "unlink('composer-setup.php');"
 mv composer.phar /usr/local/bin/composer
@@ -65,6 +72,7 @@ composer -V
 # -----------------------------
 # СТВОРЕННЯ БАЗИ ДАНИХ
 # -----------------------------
+echo "Створення бази даних..."
 mysql -uroot -p$MYSQL_PASSWORD < ./deployment/config/mysql/create_database.sql || echo "Database already exists"
 mysql -uroot -p$MYSQL_PASSWORD < ./deployment/config/mysql/set_native_password.sql
 
