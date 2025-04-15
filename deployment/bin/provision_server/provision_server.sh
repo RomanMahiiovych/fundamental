@@ -27,7 +27,6 @@ git config --global --add safe.directory $PROJECT_DIR
 # КЛОНУВАННЯ ПРОЄКТУ
 # -----------------------------
 if [ ! -d "$PROJECT_DIR/.git" ]; then
-
   echo "SSH KEY CHECK (first line):"
   head -n 1 ~/.ssh/id_rsa
 
@@ -44,7 +43,6 @@ export NVM_DIR="$HOME/.nvm"
 if [ ! -d "$NVM_DIR" ]; then
   curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
 fi
-export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 nvm install 14
