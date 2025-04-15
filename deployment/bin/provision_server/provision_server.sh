@@ -3,7 +3,7 @@
 set -ex
 
 MYSQL_PASSWORD=$1
-SSH_KEY=$2
+SSH_KEY=$(echo "$2" | base64 -d)
 
 PROJECT_DIR="/var/www/html/posts"
 

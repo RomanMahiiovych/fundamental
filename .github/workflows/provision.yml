@@ -23,4 +23,4 @@ jobs:
       - name: Run provision script on server
         run: |
           ssh -o StrictHostKeyChecking=no -i id_rsa ${{ secrets.SSH_CONNECTION_PROVISION }} \
-          "bash -s" < deployment/bin/provision_server/provision_server.sh ${{ secrets.MYSQL_PASSWORD }} '${{ secrets.SSH_KEY }}'
+          "bash -s" < deployment/bin/provision_server/provision_server.sh ${{ secrets.MYSQL_PASSWORD }} $(echo "${{ secrets.SSH_KEY }}" | base64)
