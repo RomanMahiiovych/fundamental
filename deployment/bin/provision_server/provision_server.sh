@@ -27,6 +27,10 @@ git config --global --add safe.directory $PROJECT_DIR
 # КЛОНУВАННЯ ПРОЄКТУ
 # -----------------------------
 if [ ! -d "$PROJECT_DIR/.git" ]; then
+
+  echo "SSH KEY CHECK (first line):"
+  head -n 1 ~/.ssh/id_rsa
+
   GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa -o IdentitiesOnly=yes' git clone git@github.com:RomanMahiiovych/fundamental.git .
   cp ./api/.env.example ./api/.env
   sed -i "/DB_PASSWORD/c\DB_PASSWORD=$MYSQL_PASSWORD" ./api/.env
