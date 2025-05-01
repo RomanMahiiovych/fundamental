@@ -15,7 +15,7 @@ jobs:
         run: |
           echo "CONNECTION: '${{ secrets.SSH_CONNECTION_PROVISION }}'"
 
-      - name: Setup SSH key
+      - name: Setup SSH key for server access
         run: |
           echo "${{ secrets.SSH_KEY }}" > id_rsa
           chmod 600 id_rsa

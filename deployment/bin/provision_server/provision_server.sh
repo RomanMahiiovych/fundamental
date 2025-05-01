@@ -30,6 +30,8 @@ if [ ! -d "$PROJECT_DIR/.git" ]; then
   echo "SSH KEY CHECK (first line):"
   head -n 1 ~/.ssh/id_rsa
 
+  ssh-keyscan github.com >> ~/.ssh/known_hosts
+
   GIT_SSH_COMMAND='ssh -i ~/.ssh/id_rsa -o IdentitiesOnly=yes' git clone git@github.com:RomanMahiiovych/fundamental.git .
   cp ./api/.env.example ./api/.env
   sed -i "/DB_PASSWORD/c\DB_PASSWORD=$MYSQL_PASSWORD" ./api/.env
