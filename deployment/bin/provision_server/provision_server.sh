@@ -55,6 +55,8 @@ nvm alias default 14
 # ВСТАНОВЛЕННЯ PHP 8.1 + РОЗШИРЕННЯ
 # -----------------------------
 rm -f /etc/apt/sources.list.d/ondrej-ubuntu-php-noble.list
+rm -rf /var/lib/apt/lists/*
+apt-get clean
 add-apt-repository ppa:ondrej/php -y
 apt update -y
 
