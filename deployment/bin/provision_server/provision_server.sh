@@ -98,7 +98,7 @@ mysql -uroot -p$MYSQL_PASSWORD < ./deployment/config/mysql/set_native_password.s
 useradd -G www-data,root -u 1000 -d /home/roman roman || true
 mkdir -p /home/roman/.ssh
 touch /home/roman/.ssh/authorized_keys
-echo "$SSH_KEY" >> /home/roman/.ssh/authorized_keys
+echo "$SSH_PUBLIC_KEY" >> /home/roman/.ssh/authorized_keys
 chown -R roman:roman /home/roman
 chmod 700 /home/roman/.ssh
 chmod 600 /home/roman/.ssh/authorized_keys
