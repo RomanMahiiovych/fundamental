@@ -69,10 +69,19 @@ net-tools supervisor unzip curl git software-properties-common
 # ВСТАНОВЛЕННЯ COMPOSER
 # -----------------------------
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-php -r "if (hash_file('sha384', 'dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6') === 'dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); exit(1); }"
-php composer-setup.php
-php -r "unlink('composer-setup.php');"
-mv composer.phar /usr/local/bin/composer
+EXPECTED_HASH="$(curl -s https://composer.github.io/installer.sig)"
+ACTUAL_HASH="$(php -r "echo hash_file('sha384', 'composer-setup.php');")"
+
+if [ "$EXPECTED_HASH" = "$ACTUAL_HASH" ]; then
+  php composer-setup.php
+  sudo mv composer.phar /usr/local/bin/composer
+else
+  echo "Installer corrupt"
+  rm composer-setup.php
+  exit 1
+fi
+
+rm -f composer-setup.php
 
 composer -V
 
