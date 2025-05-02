@@ -11,6 +11,8 @@ cd $PROJECT_DIR
 
 git config --global --add safe.directory $PROJECT_DIR
 
+ssh-keyscan github.com >> ~/.ssh/known_hosts
+
 if [ ! -d $PROJECT_DIR"/.git" ]; then
   GIT_SSH_COMMAND='ssh -i /home/roman/.ssh/id_rsa -o IdentitiesOnly=yes' git clone git@github.com:RomanMahiiovych/fundamental.git .
 else
