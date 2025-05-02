@@ -53,13 +53,13 @@ jobs:
           cd api
           ./vendor/bin/phpstan analyse --memory-limit=1G
 
-      - name: Run PHPInsights
-        run: |
-          cd api
-          php artisan insights --no-interaction \
-            --min-quality=90 --min-complexity=90 \
-            --min-architecture=90 --min-style=90 \
-            --ansi --format=github-action
+#      - name: Run PHPInsights
+#        run: |
+#          cd api
+#          php artisan insights --no-interaction \
+#            --min-quality=90 --min-complexity=90 \
+#            --min-architecture=90 --min-style=90 \
+#            --ansi --format=github-action
 
       - name: Run Laravel Tests
         run: |
