@@ -33,13 +33,13 @@ sudo find $PROJECT_DIR -type f -exec chmod 664 {} \;
 sudo chown -R www-data:www-data $PROJECT_DIR/api/storage
 sudo chown -R www-data:www-data $PROJECT_DIR/api/bootstrap/cache
 
-cd frontend
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-nvm use 14
-
-npm install
-npm run build
+#cd frontend
+#export NVM_DIR="$HOME/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+#nvm use 14
+#
+#npm install
+#npm run build
 
 cd ../api
 composer install --no-interaction --optimize-autoloader --no-dev
