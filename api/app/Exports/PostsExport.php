@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use App\Models\Post;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
@@ -13,7 +14,7 @@ class PostsExport implements FromQuery, WithHeadings, ShouldQueue
 {
     use Exportable;
 
-    public function query()
+    public function query(): Builder
     {
         return Post::query()
             ->select([
