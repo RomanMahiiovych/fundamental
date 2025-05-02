@@ -41,7 +41,7 @@ sudo chown -R www-data:www-data $PROJECT_DIR/api/bootstrap/cache
 #npm install
 #npm run build
 
-cd ../api
+cd $PROJECT_DIR/api
 composer install --no-interaction --optimize-autoloader --no-dev
 
 if [ ! -f .env ]; then
