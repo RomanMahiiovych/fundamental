@@ -34,6 +34,10 @@ sudo chown -R www-data:www-data $PROJECT_DIR/api/storage
 sudo chown -R www-data:www-data $PROJECT_DIR/api/bootstrap/cache
 
 cd frontend
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+nvm use 14
+
 npm install
 npm run build
 
