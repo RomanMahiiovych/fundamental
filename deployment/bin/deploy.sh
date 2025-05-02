@@ -14,7 +14,7 @@ git config --global --add safe.directory $PROJECT_DIR
 if [ ! -d $PROJECT_DIR"/.git" ]; then
   GIT_SSH_COMMAND='ssh -i /home/roman/.ssh/id_rsa -o IdentitiesOnly=yes' git clone git@github.com:RomanMahiiovych/fundamental.git .
 else
-  GIT_SSH_COMMAND='ssh -i /home/roman/.ssh/id_rsa -o IdentitiesOnly=yes' git pull
+  git pull origin main
 fi
 
 # Встановити власника на roman
