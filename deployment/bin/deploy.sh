@@ -17,6 +17,20 @@ else
   GIT_SSH_COMMAND='ssh -i /home/roman/.ssh/id_rsa -o IdentitiesOnly=yes' git pull
 fi
 
+# Встановити власника на roman
+sudo chown -R roman:roman $PROJECT_DIR
+
+# Додати roman до групи www-data (одноразово, але безпечно повторити)
+sudo usermod -aG www-data roman
+
+# Дати доступ на читання/запис власнику і групі
+sudo find $PROJECT_DIR -type d -exec chmod 775 {} \;
+sudo find $PROJECT_DIR -type f -exec chmod 664 {} \;
+
+# Дати www-data повні права на storage і bootstrap/cache
+sudo chown -R www-data:www-data $PROJECT_DIR/api/storage
+sudo chown -R www-data:www-data $PROJECT_DIR/api/bootstrap/cache
+
 cd frontend
 npm install
 npm run build
