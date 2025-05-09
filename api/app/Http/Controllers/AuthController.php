@@ -41,10 +41,9 @@ class AuthController
 
     public function logout(Request $request)
     {
-        $request->user()->currentAccessToken()->delete();
+        $user = Auth::user();
+        $user->tokens()->delete();
 
-        return response()->json([
-            'message' => 'Logged out',
-        ]);
+        return response('', Response::HTTP_NO_CONTENT);
     }
 }
