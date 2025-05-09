@@ -19,9 +19,9 @@ else
   GIT_SSH_COMMAND='ssh -i /home/roman/.ssh/id_rsa -o IdentitiesOnly=yes' git pull
 fi
 
-cd $PROJECT_DIR"/frontend"
-npm install
-npm run build
+#cd $PROJECT_DIR"/frontend"
+#npm install
+#npm run build
 
 cd $PROJECT_DIR"/api"
 
