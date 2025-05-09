@@ -19,6 +19,12 @@ else
   GIT_SSH_COMMAND='ssh -i /home/roman/.ssh/id_rsa -o IdentitiesOnly=yes' git pull
 fi
 
+cd $PROJECT_DIR"/frontend"
+npm install
+npm run build
+
+cd $PROJECT_DIR"/api"
+
 # Встановити власника на roman
 sudo chown -R roman:roman $PROJECT_DIR
 
@@ -61,11 +67,6 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 php artisan up
-
-#sudo cp $PROJECT_DIR"/deployment/config/nginx.conf" /etc/nginx/nginx.conf
-## test the config so if it's not valid we don't try to reload it
-#sudo nginx -t
-#sudo systemctl reload nginx
 
 sudo cp $PROJECT_DIR"/deployment/config/php-fpm/www.conf" /etc/php/8.1/fpm/pool.d/www.conf
 sudo cp $PROJECT_DIR"/deployment/config/php-fpm/php.ini" /etc/php/8.1/fpm/conf.d/php.ini
