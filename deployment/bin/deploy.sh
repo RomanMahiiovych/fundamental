@@ -76,3 +76,11 @@ sudo cp $PROJECT_DIR"/deployment/config/nginx.conf" /etc/nginx/nginx.conf
 # test the config so if it's not valid we don't try to reload it
 sudo nginx -t
 sudo systemctl reload nginx
+
+
+# autostart supervisor
+sudo cp $PROJECT_DIR"/deployment/config/supervisor/supervisord.conf" /etc/supervisor/conf.d/supervisord.conf
+# update the config
+sudo supervisorctl update
+# restart workers (notice the : at the end. it refers to the process group)
+sudo supervisorctl restart workers:
