@@ -54,7 +54,6 @@ sudo chown -R www-data:www-data $PROJECT_DIR/api/bootstrap/cache
 #npm run build
 
 cd $PROJECT_DIR/api
-composer install --no-interaction --optimize-autoloader --no-dev
 
 # Переконатись, що .env існує
 [ -f .env ] || cp .env.example .env
@@ -75,6 +74,8 @@ sed -i "/^FILESYSTEM_DISK=/c\FILESYSTEM_DISK=s3" .env || echo "FILESYSTEM_DISK=s
 sed -i "/^AWS_ACCESS_KEY_ID=/c\AWS_ACCESS_KEY_ID=\"$AWS_ACCESS_KEY_ID\"" .env || echo "AWS_ACCESS_KEY_ID=\"$AWS_ACCESS_KEY_ID\"" >> .env
 sed -i "/^AWS_SECRET_ACCESS_KEY=/c\AWS_SECRET_ACCESS_KEY=\"$AWS_SECRET_ACCESS_KEY\"" .env || echo "AWS_SECRET_ACCESS_KEY=\"$AWS_SECRET_ACCESS_KEY\"" >> .env
 
+
+composer install --no-interaction --optimize-autoloader --no-dev
 
 sudo chown -R www-data:www-data $PROJECT_DIR
 
