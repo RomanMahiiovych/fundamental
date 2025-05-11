@@ -71,13 +71,4 @@ jobs:
           echo "${{ secrets.SSH_KEY }}" > ./id_rsa
           chmod 600 ./id_rsa
           ssh -tt -o StrictHostKeyChecking=no -i ./id_rsa ${{ secrets.SSH_CONNECTION_TESTING }} \
-          "bash /var/www/html/posts/deployment/bin/deploy.sh \
-          '${{ secrets.MYSQL_PASSWORD }}' \
-          '${{ secrets.SSH_KEY }}' \
-          '${{ secrets.AWS_ACCESS_KEY_ID }}' \
-          '${{ secrets.AWS_SECRET_ACCESS_KEY }}' \
-          '${{ secrets.AWS_DEFAULT_REGION }}' \
-          '${{ secrets.AWS_BUCKET }}' \
-          '${{ secrets.AWS_ENDPOINT }}' \
-          '${{ secrets.AWS_USE_PATH_STYLE_ENDPOINT }}'"
-
+            "bash /var/www/html/posts/deployment/bin/deploy.sh ${{ secrets.MYSQL_PASSWORD }}"

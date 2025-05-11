@@ -3,12 +3,6 @@
 set -e
 
 MYSQL_PASSWORD=$1
-AWS_ACCESS_KEY_ID=$2
-AWS_SECRET_ACCESS_KEY=$3
-AWS_DEFAULT_REGION=$4
-AWS_BUCKET=$5
-AWS_ENDPOINT=$6
-AWS_USE_PATH_STYLE_ENDPOINT=$7
 
 PROJECT_DIR="/var/www/html/posts"
 
@@ -55,14 +49,14 @@ sudo chown -R www-data:www-data $PROJECT_DIR/api/bootstrap/cache
 
 cd $PROJECT_DIR/api
 
+composer install --no-interaction --optimize-autoloader --no-dev
+
 if [ ! -f .env ]; then
     cp .env.example .env
     sed -i "/DB_PASSWORD/c\DB_PASSWORD=$MYSQL_PASSWORD" .env
     sed -i '/QUEUE_CONNECTION/c\QUEUE_CONNECTION=database' .env
     php artisan key:generate
 fi
-
-composer install --no-interaction --optimize-autoloader --no-dev
 
 sudo chown -R www-data:www-data $PROJECT_DIR
 
