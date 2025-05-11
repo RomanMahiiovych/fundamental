@@ -74,8 +74,8 @@ jobs:
             "bash /var/www/html/posts/deployment/bin/deploy.sh ${{ secrets.MYSQL_PASSWORD }}"
 
       - name: Set up .env for Backblaze bucket
-        working-directory: /var/www/html/posts/api
         run: |
+          cd api
           echo "FILESYSTEM_DISK=s3" >> .env
           echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> .env
           echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
