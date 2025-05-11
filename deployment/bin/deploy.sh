@@ -59,6 +59,14 @@ composer install --no-interaction --optimize-autoloader --no-dev
 # Переконатись, що .env існує
 [ -f .env ] || cp .env.example .env
 
+echo "DEBUG: [$AWS_ENDPOINT]"
+echo "DEBUG: [$AWS_SECRET_ACCESS_KEY]"
+echo "DEBUG: [$AWS_ACCESS_KEY_ID]"
+echo "DEBUG: [$AWS_BUCKET]"
+echo "DEBUG: [$AWS_DEFAULT_REGION]"
+echo "DEBUG: [$AWS_USE_PATH_STYLE_ENDPOINT]"
+
+
 # Оновити або вставити ключі незалежно від наявності (з лапками там, де потрібно)
 sed -i "/^DB_PASSWORD=/c\DB_PASSWORD=$MYSQL_PASSWORD" .env || echo "DB_PASSWORD=$MYSQL_PASSWORD" >> .env
 sed -i "/^QUEUE_CONNECTION=/c\QUEUE_CONNECTION=database" .env || echo "QUEUE_CONNECTION=database" >> .env
