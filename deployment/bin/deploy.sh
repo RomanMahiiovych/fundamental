@@ -59,17 +59,13 @@ composer install --no-interaction --optimize-autoloader --no-dev
 # Переконатись, що .env існує
 [ -f .env ] || cp .env.example .env
 
-# Оновити або вставити ключі незалежно від наявності
+# Оновити або вставити ключі незалежно від наявності (з лапками там, де потрібно)
 sed -i "/^DB_PASSWORD=/c\DB_PASSWORD=$MYSQL_PASSWORD" .env || echo "DB_PASSWORD=$MYSQL_PASSWORD" >> .env
 sed -i "/^QUEUE_CONNECTION=/c\QUEUE_CONNECTION=database" .env || echo "QUEUE_CONNECTION=database" >> .env
 
 sed -i "/^FILESYSTEM_DISK=/c\FILESYSTEM_DISK=s3" .env || echo "FILESYSTEM_DISK=s3" >> .env
-sed -i "/^AWS_ACCESS_KEY_ID=/c\AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" .env || echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> .env
-sed -i "/^AWS_SECRET_ACCESS_KEY=/c\AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" .env || echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> .env
-sed -i "/^AWS_DEFAULT_REGION=/c\AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION" .env || echo "AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION" >> .env
-sed -i "/^AWS_BUCKET=/c\AWS_BUCKET=$AWS_BUCKET" .env || echo "AWS_BUCKET=$AWS_BUCKET" >> .env
-sed -i "/^AWS_ENDPOINT=/c\AWS_ENDPOINT=$AWS_ENDPOINT" .env || echo "AWS_ENDPOINT=$AWS_ENDPOINT" >> .env
-sed -i "/^AWS_USE_PATH_STYLE_ENDPOINT=/c\AWS_USE_PATH_STYLE_ENDPOINT=$AWS_USE_PATH_STYLE_ENDPOINT" .env || echo "AWS_USE_PATH_STYLE_ENDPOINT=$AWS_USE_PATH_STYLE_ENDPOINT" >> .env
+sed -i "/^AWS_ACCESS_KEY_ID=/c\AWS_ACCESS_KEY_ID=\"$AWS_ACCESS_KEY_ID\"" .env || echo "AWS_ACCESS_KEY_ID=\"$AWS_ACCESS_KEY_ID\"" >> .env
+sed -i "/^AWS_SECRET_ACCESS_KEY=/c\AWS_SECRET_ACCESS_KEY=\"$AWS_SECRET_ACCESS_KEY\"" .env || echo "AWS_SECRET_ACCESS_KEY=\"$AWS_SECRET_ACCESS_KEY\"" >> .env
 
 # Додаємо S3/Backblaze налаштування
 cat <<EOF >> .env
