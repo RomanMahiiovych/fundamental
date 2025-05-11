@@ -55,25 +55,12 @@ sudo chown -R www-data:www-data $PROJECT_DIR/api/bootstrap/cache
 
 cd $PROJECT_DIR/api
 
-# Переконатись, що .env існує
-[ -f .env ] || cp .env.example .env
-
-echo "DEBUG: [$AWS_ENDPOINT]"
-echo "DEBUG: [$AWS_SECRET_ACCESS_KEY]"
-echo "DEBUG: [$AWS_ACCESS_KEY_ID]"
-echo "DEBUG: [$AWS_BUCKET]"
-echo "DEBUG: [$AWS_DEFAULT_REGION]"
-echo "DEBUG: [$AWS_USE_PATH_STYLE_ENDPOINT]"
-
-
-# Оновити або вставити ключі незалежно від наявності (з лапками там, де потрібно)
-sed -i "/^DB_PASSWORD=/c\DB_PASSWORD=$MYSQL_PASSWORD" .env || echo "DB_PASSWORD=$MYSQL_PASSWORD" >> .env
-sed -i "/^QUEUE_CONNECTION=/c\QUEUE_CONNECTION=database" .env || echo "QUEUE_CONNECTION=database" >> .env
-
-sed -i "/^FILESYSTEM_DISK=/c\FILESYSTEM_DISK=s3" .env || echo "FILESYSTEM_DISK=s3" >> .env
-sed -i "/^AWS_ACCESS_KEY_ID=/c\AWS_ACCESS_KEY_ID=\"$AWS_ACCESS_KEY_ID\"" .env || echo "AWS_ACCESS_KEY_ID=\"$AWS_ACCESS_KEY_ID\"" >> .env
-sed -i "/^AWS_SECRET_ACCESS_KEY=/c\AWS_SECRET_ACCESS_KEY=\"$AWS_SECRET_ACCESS_KEY\"" .env || echo "AWS_SECRET_ACCESS_KEY=\"$AWS_SECRET_ACCESS_KEY\"" >> .env
-
+if [ ! -f .env ]; then
+    cp .env.example .env
+    sed -i "/DB_PASSWORD/c\DB_PASSWORD=$MYSQL_PASSWORD" .env
+    sed -i '/QUEUE_CONNECTION/c\QUEUE_CONNECTION=database' .env
+    php artisan key:generate
+fi
 
 composer install --no-interaction --optimize-autoloader --no-dev
 
